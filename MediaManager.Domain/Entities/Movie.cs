@@ -2,7 +2,7 @@
 
 namespace MediaManager.Domain.Entities
 {
-    internal class Movie : BaseEntity
+    public class Movie : BaseEntity
     {
 
         [Required]
@@ -16,6 +16,7 @@ namespace MediaManager.Domain.Entities
         public bool Favorite { get; set; }
         public int RatingId { get; set; }
 
+        public Rating Rating { get; set; }
         #region Movie Constructors
         public Movie(int id, string title) : base(id) 
         {
@@ -67,7 +68,7 @@ namespace MediaManager.Domain.Entities
         #region Movie Overrides
         public override string ToString()
         {
-            return $"{base.ToString}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{RatingId}";
+            return $"{base.ToString}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{Rating.Name}";
         }
 
         public override bool Equals(object? obj)
