@@ -8,13 +8,18 @@ namespace MediaManager.Domain.Entities
         [StringLength(25, ErrorMessage = "Rating name can only be 25 characters.")]
         public string Name { get; set; }
 
-        public string? ShortDescription { get; set; }
-        public string? Description { get; set; }
+        public string ShortDescription { get; set; }
+        public string Description { get; set; }
+
+        protected ICollection<Movie> Movies { get; set; }
 
         #region Rating Constructors
         public Rating(int id, string name) : base(id)
         {
             Name = name;
+            ShortDescription = string.Empty;
+            Description = string.Empty;
+            Movies = new List<Movie>();
         }
 
         public Rating(int id, string name, string shortDescription) : this(id, name)
@@ -26,12 +31,18 @@ namespace MediaManager.Domain.Entities
         {
             Description = description;
         }
+
+        public Rating(int id, string name, string shortDescription, string description, ICollection<Movie> movies) 
+            : this(id, name, shortDescription, description)
+        {
+            Movies = movies;
+        }
         #endregion
 
         #region Rating Overrides
         public override string ToString()
         {
-            return $"{base.ToString}:{Name}";
+            return $"{base.ToString()}:{Name}";
         }
 
         public override bool Equals(object? obj)

@@ -9,18 +9,22 @@ namespace MediaManager.Domain.Entities
         [StringLength(50, ErrorMessage = "The movie title can only be 50 characters long.")]
         public string Title { get; set; }
         [StringLength(255, ErrorMessage = "The short description can only be 255 characters long.")]
-        public string? ShortDescription { get; set; }
-        public string? LongDescription { get; set; }
+        public string ShortDescription { get; set; }
+        public string LongDescription { get; set; }
         public int RunTime { get; set; }
         public int ReleaseYear { get; set; }
         public bool Favorite { get; set; }
         public int RatingId { get; set; }
 
-        public Rating Rating { get; set; }
+        public Rating? Rating { get; set; }
+        public IEnumerable<Actor>? Actors { get; set; }
+
         #region Movie Constructors
         public Movie(int id, string title) : base(id) 
         {
             Title = title;
+            ShortDescription = string.Empty;
+            LongDescription = string.Empty;
         }
 
         public Movie(int id, string title, string shortDescription)
@@ -68,7 +72,7 @@ namespace MediaManager.Domain.Entities
         #region Movie Overrides
         public override string ToString()
         {
-            return $"{base.ToString}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{Rating.Name}";
+            return $"{base.ToString()}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{Rating.Name}";
         }
 
         public override bool Equals(object? obj)
