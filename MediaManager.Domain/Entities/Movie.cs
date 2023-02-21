@@ -20,8 +20,9 @@ namespace MediaManager.Domain.Entities
         public int RatingId { get; set; }
 
         public Rating? Rating { get; set; }
-        public ICollection<ActorMovie>? Actors { get; set; }
-        public ICollection<GenreMovie>? Genres { get; set; }
+        public ICollection<Actor> Actors { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+        public ICollection<Director> Directors { get; set; }
 
 
         #region Movie Constructors
@@ -30,6 +31,9 @@ namespace MediaManager.Domain.Entities
             Title = title;
             ShortDescription = string.Empty;
             LongDescription = string.Empty;
+            Actors = new List<Actor>();
+            Genres = new List<Genre>();
+            Directors = new List<Director>();
         }
 
         public Movie(int id, string title, string shortDescription)

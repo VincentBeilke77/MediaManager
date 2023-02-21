@@ -3,16 +3,16 @@
 namespace MediaManager.Domain.Entities
 {
     /// <summary>   
-    /// Actor is an entity class for holding all the information related to an actor including movies
+    /// Director is an entity class for holding all the information related to an director including movies
     /// associated with them.
     /// </summary>
-    public class Actor : BaseEntity
+    public class Director : BaseEntity
     {
-        [MaxLength(25, ErrorMessage = "First name can only be 25 characters.")]
+        [StringLength(25, ErrorMessage = "Last name can only be 25 characters.")]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(25, ErrorMessage = "Last name can only be 25 characters.")]
+        [StringLength(25, ErrorMessage = "Last name can only be 25 characters.")]
         public string LastName { get; set; }
 
         public string FullName
@@ -23,24 +23,24 @@ namespace MediaManager.Domain.Entities
                 if (string.IsNullOrWhiteSpace(FirstName)) return fullName;
                 if (!string.IsNullOrWhiteSpace(fullName))
                 {
-                    fullName += ", ";
+                    fullName = ", ";
                 }
                 fullName += FirstName;
                 return fullName;
             }
         }
 
-        public ICollection<ActorMovie> Movies { get; set; }
+        public ICollection<DirectorMovie> Movies { get; set; }
 
-        #region Actor Constructors
-        public Actor(int id, string lastName) : base(id)
+        #region Director Constructors
+        public Director(int id, string lastName) : base(id)
         {
             LastName = lastName;
             FirstName = string.Empty;
-            Movies = new List<ActorMovie>();
+            Movies = new List<DirectorMovie>();
         }
 
-        public Actor(int id, string lastName, string firstName) : this(id, lastName) 
+        public Director(int id, string lastName, string firstName) : this(id, lastName) 
         {
             FirstName = firstName;
         }
@@ -57,8 +57,8 @@ namespace MediaManager.Domain.Entities
             if (obj == null) return false;
             if (GetType() != obj.GetType()) return false;
 
-            var actor = (Actor) obj;
-            return actor.Id == Id && actor.FullName == FullName;
+            var director = (Director)obj;
+            return director.Id == Id && director.FullName == FullName;
         }
 
         public override int GetHashCode()
