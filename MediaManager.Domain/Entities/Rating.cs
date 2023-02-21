@@ -2,6 +2,10 @@
 
 namespace MediaManager.Domain.Entities
 {
+    /// <summary>
+    /// Rating is an entity class for holding all the information related to a rating including movies
+    /// associated with it.
+    /// </summary>
     public class Rating : BaseEntity
     {
         [Required]

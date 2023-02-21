@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MediaManager.Domain.Entities
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace MediaManager.Domain.Entities
 {
+    /// <summary>    /// 
+    /// Actor is an entity class for holding all the information related to an actor including movies
+    /// associated with them.
+    /// </summary>
     public class Actor : BaseEntity
     {
         [MaxLength(25, ErrorMessage = "First name can only be 25 characters.")]

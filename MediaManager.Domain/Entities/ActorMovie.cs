@@ -2,6 +2,10 @@
 
 namespace MediaManager.Domain.Entities
 {
+    /// <summary>
+    /// ActorMovie is a class used to create a link between Movies and Actors as they
+    /// have a many-to-many relationship.
+    /// </summary>
     public class ActorMovie
     {
         [Required]

@@ -2,6 +2,9 @@
 
 namespace MediaManager.Domain.Entities
 {
+    /// <summary>
+    /// Movie is entity class for holding all the information related to a Movie.
+    /// </summary>
     public class Movie : BaseEntity
     {
 
@@ -17,7 +20,9 @@ namespace MediaManager.Domain.Entities
         public int RatingId { get; set; }
 
         public Rating? Rating { get; set; }
-        public IEnumerable<Actor>? Actors { get; set; }
+        public ICollection<ActorMovie>? Actors { get; set; }
+        public ICollection<GenreMovie>? Genres { get; set; }
+
 
         #region Movie Constructors
         public Movie(int id, string title) : base(id) 
@@ -72,7 +77,7 @@ namespace MediaManager.Domain.Entities
         #region Movie Overrides
         public override string ToString()
         {
-            return $"{base.ToString()}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{Rating.Name}";
+            return $"{base.ToString()}:{Title}:{RunTime}:{ReleaseYear}:{Favorite}:{Rating?.Name}";
         }
 
         public override bool Equals(object? obj)
