@@ -21,11 +21,11 @@ namespace MediaManager.Domain.Entities
 
         public Rating? Rating { get; set; }
         public MediaImage? Image { get; set; }
-        public ICollection<Actor> Actors { get; set; }
-        public ICollection<Genre> Genres { get; set; }
-        public ICollection<Director> Directors { get; set; }
-        public ICollection<Studio> Studios { get; set; }
-        public ICollection<MediaType> MediaTypes { get; set; }
+        public ICollection<ActorMovie> Actors { get; set; }
+        public ICollection<GenreMovie> Genres { get; set; }
+        public ICollection<DirectorMovie> Directors { get; set; }
+        public ICollection<StudioMovie> Studios { get; set; }
+        public ICollection<MediaTypeMovie> MediaTypes { get; set; }
 
         #region Movie Constructors
         public Movie(int id, string title) : base(id) 
@@ -33,11 +33,11 @@ namespace MediaManager.Domain.Entities
             Title = title;
             ShortDescription = string.Empty;
             LongDescription = string.Empty;
-            Actors = new List<Actor>();
-            Genres = new List<Genre>();
-            Directors = new List<Director>();
-            Studios = new List<Studio>();
-            MediaTypes = new List<MediaType>();
+            Actors = new List<ActorMovie>();
+            Genres = new List<GenreMovie>();
+            Directors = new List<DirectorMovie>();
+            Studios = new List<StudioMovie>();
+            MediaTypes = new List<MediaTypeMovie>();
         }
 
         public Movie(int id, string title, string shortDescription)
