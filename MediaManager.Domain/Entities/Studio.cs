@@ -17,7 +17,7 @@ namespace MediaManager.Domain.Entities
         [StringLength(25, ErrorMessage = "Studio name can only be 25 characters.")]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public ICollection<StudioMovie> Movies { get; set; }
 
