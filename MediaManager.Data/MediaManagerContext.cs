@@ -23,7 +23,7 @@ namespace MediaManager.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_config.GetConnectionString("MediaCatalog"));
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("MediaManager"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
