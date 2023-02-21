@@ -23,7 +23,7 @@ namespace MediaManager.Domain.Entities
         public ICollection<Actor> Actors { get; set; }
         public ICollection<Genre> Genres { get; set; }
         public ICollection<Director> Directors { get; set; }
-
+        public ICollection<Studio> Studios { get; set; }
 
         #region Movie Constructors
         public Movie(int id, string title) : base(id) 
@@ -34,6 +34,7 @@ namespace MediaManager.Domain.Entities
             Actors = new List<Actor>();
             Genres = new List<Genre>();
             Directors = new List<Director>();
+            Studios = new List<Studio>();
         }
 
         public Movie(int id, string title, string shortDescription)
