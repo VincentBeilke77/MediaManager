@@ -20,6 +20,7 @@ namespace MediaManager.Domain.Entities
         public int RatingId { get; set; }
 
         public Rating? Rating { get; set; }
+        public MediaImage? Image { get; set; }
         public ICollection<Actor> Actors { get; set; }
         public ICollection<Genre> Genres { get; set; }
         public ICollection<Director> Directors { get; set; }
