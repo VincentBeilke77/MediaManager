@@ -4,7 +4,7 @@ using System.IO;
 
 namespace MediaManager.Data.Factories
 {
-    public class MediaCatalogFactory
+    public class MediaManagerContextFactory
     {
         public MediaManagerContext CreateDbContext(string[] args)
         {

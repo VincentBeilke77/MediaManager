@@ -12,7 +12,7 @@ namespace MediaManager.Data.Repositories
     public class MovieRepository : BaseRepository, IMovieRepository
     {
         /// <summary>
-        /// 
+        /// MovieRepository is a class used to access the data from a database context.
         /// </summary>
         /// <param name="context"></param>
         /// <param name="logger"></param>
@@ -21,9 +21,9 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Returns all the movies in the database asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <code>Collection</code> of <code>Movie</code>s.</returns>
         public async Task<ICollection<Movie>> GetAllAsync()
         {
             _logger.LogInformation($"Getting all Movies");
@@ -47,10 +47,10 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Returns the movie associated with the id passed in asynchronously.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">an id containing an <code>int</code> of the movie to be returned</param>
+        /// <returns>A <code>Movie</code></returns>
         /// <exception cref="NullReferenceException"></exception>
         public async Task<Movie> GetAsync(int id)
         {
@@ -78,9 +78,9 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Returns all the movies that are marked as favorite asynchronously.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <code>Collection</code> of <code>Movie</code>s.</returns>
         public async Task<ICollection<Movie>> GetFavoriteMovies()
         {
             _logger.LogInformation($"Getting movies that are marked as favorite.");
@@ -104,10 +104,10 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Returns all the movies whose title contains the associated string passed in asynchronously.
         /// </summary>
         /// <param name="title"></param>
-        /// <returns></returns>
+        /// <returns>A <code>Collection</code> of <code>Movie</code>s.</returns>
         public async Task<ICollection<Movie>> SearchMoviesByTitle(string title)
         {
             _logger.LogInformation($"Getting movies with {title} in them");
@@ -131,9 +131,9 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Checks the database for an exact matching title to the string passed in.
         /// </summary>
-        /// <param name="title"></param>
+        /// <param name="title">A <code>string</code> containing the exact title to search for.</param>
         /// <returns></returns>
         public bool CheckForExistingMovie(string title)
         {
@@ -143,9 +143,9 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Checks the database for an exact matching id to the int passed in.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">An <code>int</code> containing the id to search on.</param>
         /// <returns></returns>
         public bool CheckForExistingMovie(int id)
         {
@@ -155,7 +155,8 @@ namespace MediaManager.Data.Repositories
         }
 
         /// <summary>
-        /// 
+        /// Uses the database to generate a new id that can be used for the movie to be
+        /// created.
         /// </summary>
         /// <returns></returns>
         public async Task<int> GenerateMovieId()
