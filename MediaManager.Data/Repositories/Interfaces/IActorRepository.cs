@@ -11,7 +11,6 @@ namespace MediaManager.Data.Repositories.Interfaces
         Task<ICollection<Actor>> GetActorsByMovieIdAsync(int movieId);
 
         Task<Actor> GetActorByNameAsync(string lastName, string firstName);
-
         int GenerateActorId();
 
         Task<ICollection<Actor>> GetActorsByNameSearchValue(string value);

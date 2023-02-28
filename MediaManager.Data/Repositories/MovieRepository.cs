@@ -7,15 +7,15 @@ using System.Data;
 namespace MediaManager.Data.Repositories
 {
     /// <summary>
-    /// 
+    /// MovieRepository is a class used to access the data from a database context.
     /// </summary>
     public class MovieRepository : BaseRepository, IMovieRepository
     {
         /// <summary>
-        /// MovieRepository is a class used to access the data from a database context.
+        /// A constructor for passing a context and logger to the BaseRepository class.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="logger"></param>
+        /// <param name="context"><code>MediaManagerContext</code> for access to the database.</param>
+        /// <param name="logger"><code>ILogger</code> for logging information and errors.</param>
         public MovieRepository(MediaManagerContext context, ILogger logger) : base(context, logger)
         {
         }
@@ -23,7 +23,7 @@ namespace MediaManager.Data.Repositories
         /// <summary>
         /// Returns all the movies in the database asynchronously.
         /// </summary>
-        /// <returns>A <code>Collection</code> of <code>Movie</code>s.</returns>
+        /// <returns>A <code>ICollection</code> of <code>Movie</code>s.</returns>
         public async Task<ICollection<Movie>> GetAllAsync()
         {
             _logger.LogInformation($"Getting all Movies");
