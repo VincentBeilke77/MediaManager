@@ -1,8 +1,8 @@
 using MediaManager.Domain.Entities;
 
-namespace MediaCatalog.API.Data.Repositories
+namespace MediaManager.Data.Repositories.Interfaces
 {
-    public interface IActorRepository
+    public interface IActorRepository : IBaseRepository
     {
         Task<ICollection<Actor>> GetAllActorsAsync();
 

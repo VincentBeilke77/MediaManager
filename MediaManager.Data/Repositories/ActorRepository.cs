@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.Data.SqlClient;
-using MediaManager.Data.Repositories;
+using MediaManager.Data.Repositories.Interfaces;
 using MediaManager.Domain.Entities;
-using MediaManager.Data;
 
-namespace MediaCatalog.API.Data.Repositories
+namespace MediaManager.Data.Repositories
 {
     /// <summary>
     ///
@@ -60,11 +59,12 @@ namespace MediaCatalog.API.Data.Repositories
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="lastName"></param>
         /// <param name="firstName"></param>
         /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
         public async Task<Actor> GetActorByNameAsync(string lastName, string firstName)
         {
             _logger.LogInformation($"Getting actor info for {lastName}, {firstName}");
