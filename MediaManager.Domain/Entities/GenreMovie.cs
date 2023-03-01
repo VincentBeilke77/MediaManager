@@ -13,21 +13,23 @@ namespace MediaManager.Domain.Entities
         [Required]
         public int MovieId { get; set; }
 
-        public Genre Genre { get; set; }
-        public Movie Movie { get; set; }
+        public Genre? Genre { get; set; }
+        public Movie? Movie { get; set; }
 
         #region GenreMovie Constructor
-        public GenreMovie(Genre genre, Movie movie) 
+        private GenreMovie() { }
+
+        public GenreMovie(int genreId, int movieId) 
         { 
-            Genre = genre;
-            Movie = movie;
+            GenreId = genreId;
+            MovieId = movieId;
         }
         #endregion
 
         #region GenreMovie Overrides
         public override string ToString()
         {
-            return $"{Genre.Name}:{Movie.Title}";
+            return $"{GenreId}:{MovieId}";
         }
 
         public override bool Equals(object? obj)
@@ -36,12 +38,12 @@ namespace MediaManager.Domain.Entities
             if (GetType() != obj.GetType()) return false;
 
             var genreMovie = (GenreMovie)obj;
-            return genreMovie.Genre.Equals(Genre) && genreMovie.Movie.Equals(Movie);
+            return genreMovie.GenreId == GenreId && genreMovie.MovieId == MovieId;
         }
 
         public override int GetHashCode()
         {
-            return Genre.GetHashCode() ^ Movie.GetHashCode();
+            return GenreId.GetHashCode() ^ MovieId.GetHashCode();
         }
         #endregion
     }

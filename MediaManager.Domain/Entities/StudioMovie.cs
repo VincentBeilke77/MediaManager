@@ -20,23 +20,23 @@ namespace MediaManager.Domain.Entities
         [Required]
         public int MovieId { get; set; }
 
-        public Studio Studio { get; set; }
-        public Movie Movie { get; set; }
+        public Studio? Studio { get; set; }
+        public Movie? Movie { get; set; }
 
         #region StudioMovie Constructor
-        public StudioMovie(Studio studio, Movie movie)
+        private StudioMovie() { }
+
+        public StudioMovie(int studioId, int movieId)
         {
-            StudioId = studio.Id;
-            MovieId = movie.Id;
-            Studio = studio;
-            Movie = movie;
+            StudioId = studioId;
+            MovieId = movieId;
         }
         #endregion
 
         #region StudioMovie Overrides
         public override string ToString()
         {
-            return $"{Studio.Name}:{Movie.Title}";
+            return $"{StudioId}:{MovieId}";
         }
 
         public override bool Equals(object? obj)
@@ -45,12 +45,12 @@ namespace MediaManager.Domain.Entities
             if (GetType() != obj.GetType()) return false;
 
             var studioMovie = (StudioMovie)obj;
-            return studioMovie.Studio.Equals(Studio) && studioMovie.Movie.Equals(Movie);
+            return studioMovie.StudioId == StudioId && studioMovie.MovieId == MovieId;
         }
 
         public override int GetHashCode()
         {
-            return Studio.GetHashCode() ^ Movie.GetHashCode();
+            return StudioId.GetHashCode() ^ MovieId.GetHashCode();
         }
         #endregion
     }

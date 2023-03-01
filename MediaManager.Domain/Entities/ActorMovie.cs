@@ -14,23 +14,23 @@ namespace MediaManager.Domain.Entities
         [Required]
         public int MovieId { get; set; }
 
-        public Actor Actor { get; set; }
-        public Movie Movie { get; set; }
+        public Actor? Actor { get; set; }
+        public Movie? Movie { get; set; }
 
         #region ActorMovie Constructor
-        public ActorMovie(Actor actor, Movie movie) 
+        private ActorMovie() { }
+
+        public ActorMovie(int actorId, int movieId) 
         {
-            ActorId = actor.Id;
-            MovieId = movie.Id;
-            Actor = actor;
-            Movie = movie;
+            ActorId = actorId;
+            MovieId = movieId;
         }
         #endregion
 
         #region ActorMovie Overrides
         public override string ToString()
         {
-            return $"{Actor.FullName}:{Movie.Title}";
+            return $"{ActorId}:{MovieId}";
         }
 
         public override bool Equals(object? obj)
@@ -39,12 +39,12 @@ namespace MediaManager.Domain.Entities
             if (GetType() != obj.GetType()) return false;
 
             var actorMovie = (ActorMovie) obj;
-            return actorMovie.Actor.Equals(Actor) && actorMovie.Movie.Equals(Movie);
+            return actorMovie.ActorId == ActorId && actorMovie.MovieId == MovieId;
         }
 
         public override int GetHashCode()
         {
-            return Actor.GetHashCode() ^ Movie.GetHashCode();
+            return ActorId.GetHashCode() ^ MovieId.GetHashCode();
         }
         #endregion
     }

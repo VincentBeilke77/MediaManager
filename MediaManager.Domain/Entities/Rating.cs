@@ -12,7 +12,6 @@ namespace MediaManager.Domain.Entities
         [StringLength(25, ErrorMessage = "Rating name can only be 25 characters.")]
         public string Name { get; set; }
 
-        public string ShortDescription { get; set; }
         public string Description { get; set; }
 
         protected ICollection<Movie> Movies { get; set; }
@@ -21,23 +20,17 @@ namespace MediaManager.Domain.Entities
         public Rating(int id, string name) : base(id)
         {
             Name = name;
-            ShortDescription = string.Empty;
             Description = string.Empty;
             Movies = new List<Movie>();
         }
 
-        public Rating(int id, string name, string shortDescription) : this(id, name)
-        {
-            ShortDescription = shortDescription;
-        }
-
-        public Rating(int id, string name, string shortDescription, string description) : this(id, name, shortDescription)
+        public Rating(int id, string name, string description) : this(id, name)
         {
             Description = description;
         }
 
-        public Rating(int id, string name, string shortDescription, string description, ICollection<Movie> movies) 
-            : this(id, name, shortDescription, description)
+        public Rating(int id, string name, string description, ICollection<Movie> movies) 
+            : this(id, name, description)
         {
             Movies = movies;
         }

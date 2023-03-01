@@ -19,23 +19,23 @@ namespace MediaManager.Domain.Entities
         [Required]
         public int MovieId { get; set; }
 
-        public MediaType MediaType { get; set; }
-        public Movie Movie { get; set; }
+        public MediaType? MediaType { get; set; }
+        public Movie? Movie { get; set; }
 
         #region MediaTypeMovie Constructor
-        public MediaTypeMovie(MediaType mediaType, Movie movie)
+        private MediaTypeMovie() { }
+
+        public MediaTypeMovie(int mediaTypeId, int movieId)
         {
-            MediaTypeId = mediaType.Id;
-            MovieId = movie.Id;
-            MediaType = mediaType;
-            Movie = movie;
+            MediaTypeId = mediaTypeId;
+            MovieId = movieId;
         }
         #endregion
 
         #region MediaTypeMovie Overrides
         public override string ToString()
         {
-            return $"{MediaType.Name}:{Movie.Title}";
+            return $"{MediaTypeId}:{MovieId}";
         }
 
         public override bool Equals(object? obj)
@@ -44,12 +44,12 @@ namespace MediaManager.Domain.Entities
             if (GetType() != obj.GetType()) return false;
 
             var mediaTypeMovie = (MediaTypeMovie)obj;
-            return mediaTypeMovie.MediaType.Equals(MediaType) && mediaTypeMovie.Movie.Equals(Movie);
+            return mediaTypeMovie.MediaTypeId == MediaTypeId && mediaTypeMovie.MovieId == MovieId;
         }
 
         public override int GetHashCode()
         {
-            return MediaType.GetHashCode() ^ Movie.GetHashCode();
+            return MediaTypeId.GetHashCode() ^ MovieId.GetHashCode();
         }
         #endregion
     }

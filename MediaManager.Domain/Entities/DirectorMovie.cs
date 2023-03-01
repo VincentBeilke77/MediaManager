@@ -19,23 +19,23 @@ namespace MediaManager.Domain.Entities
         [Required]
         public int MovieId { get; set; }
 
-        public Director Director { get; set; }
-        public Movie Movie { get; set; }
+        public Director? Director { get; set; }
+        public Movie? Movie { get; set; }
 
         #region DirectorMovie Constructor
-        public DirectorMovie(Director director, Movie movie)
+        private DirectorMovie() { }
+
+        public DirectorMovie(int directorId, int movieId)
         {
-            DirectorId = director.Id;
-            MovieId = movie.Id;
-            Director = director;
-            Movie = movie;
+            DirectorId = directorId;
+            MovieId = movieId;
         }
         #endregion
 
         #region DirectorMovie Overrides
         public override string ToString()
         {
-            return $"{Director.FullName}:{Movie.Title}";
+            return $"{DirectorId}:{MovieId}";
         }
 
         public override bool Equals(object? obj)
@@ -44,12 +44,12 @@ namespace MediaManager.Domain.Entities
             if (GetType() != obj.GetType()) return false;
 
             var directorMovie = (DirectorMovie)obj;
-            return directorMovie.Director.Equals(Director) && directorMovie.Movie.Equals(Movie);
+            return directorMovie.DirectorId == DirectorId && directorMovie.MovieId == MovieId;
         }
 
         public override int GetHashCode()
         {
-            return Director.GetHashCode() ^ Movie.GetHashCode();
+            return DirectorId.GetHashCode() ^ MovieId.GetHashCode();
         }
         #endregion
     }
