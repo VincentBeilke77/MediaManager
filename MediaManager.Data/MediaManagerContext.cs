@@ -5,12 +5,6 @@ namespace MediaManager.Data
 {
     public class MediaManagerContext : DbContext
     {
-        private readonly IConfiguration _config;
-
-        public MediaManagerContext(DbContextOptions options, IConfiguration config)
-        {
-            _config = config;
-        }
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
@@ -21,9 +15,17 @@ namespace MediaManager.Data
         public DbSet<MediaImage> MediaImages { get; set; }
         public DbSet<Studio> Studios { get; set; }
 
+        private readonly IConfiguration _config;
+
+        public MediaManagerContext(DbContextOptions options, IConfiguration config)
+        {
+            _config = config;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_config.GetConnectionString("MediaManager"));
+            optionsBuilder.EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,112 +37,107 @@ namespace MediaManager.Data
 
         private static void AddTestDataModels(ModelBuilder modelBuilder)
         {
-            var actor = new
-            {
-                Id = 1,
-                FirstName = "Sylvester",
-                LastName = "Stallone"
-            };
+            var actor = new Actor
+            (
+                id: 1,
+                firstName: "Sylvester",
+                lastName: "Stallone"
+            );
 
             modelBuilder.Entity<Actor>().HasData(actor);
 
-            var actorMovie = new { ActorId = 1, MovieId = 1 };
-
-            modelBuilder.Entity<ActorMovie>().HasData(actorMovie);
-
-            var rating = new
-            {
-                Id = 1,
-                Name = "R",
-                Description = "Under 17 requires accompanying parent or adult guardian. Contains " +
+            var rating = new Rating
+            (
+                id: 1,
+                name: "R",
+                description: "Under 17 requires accompanying parent or adult guardian. Contains " +
                 "some adult material. Parents are urged to learn more about the film before taking " +
                 "their young children with them."
-            };
+            );
 
             modelBuilder.Entity<Rating>().HasData(rating);
 
-            var movie = new
-            {
-                Id = 1,
-                Title = "Rambo: The Fight Continues",
-                ShortDescription = "The ultimate American action hero returns - with a vengeance!",
-                LongDescription = "After spending several years in Northern Thailand operating a " +
-                    "longboat on the Salween River, John Rambo reluctantly agrees to carry a group " +
-                    "of Christian missionaries into war-torn Burma. But when the aid workers are " +
-                    "captured by ruthless Nationalist Army soldiers, Rambo leads a group of " +
-                    "battle-scarred, combat-hardened mercenaries on an epic last-ditch mission to " +
-                    "rescue the prisoners - at all costs.",
-                RunTime = 91,
-                ReleaseYear = 2008,
-                RatingId = 1,
-                Favorite = true
-            };
+            var movie = new Movie
+            (
+                id: 1,
+                title: "Rambo: The Fight Continues",
+                shortDescription: "The ultimate American action hero returns - with a vengeance!",
+                longDescription: "After spending several years in Northern Thailand operating a " +
+                "longboat on the Salween River, John Rambo reluctantly agrees to carry a group " +
+                "of Christian missionaries into war-torn Burma. But when the aid workers are " +
+                "captured by ruthless Nationalist Army soldiers, Rambo leads a group of " +
+                "battle-scarred, combat-hardened mercenaries on an epic last-ditch mission to " +
+                "rescue the prisoners - at all costs.",
+                runTime: 91,
+                releaseYear: 2008,
+                favorite: true,
+                ratingId: 1
+            );
 
             modelBuilder.Entity<Movie>().HasData(movie);
 
-            var director = new
-            {
-                Id = 1,
-                FirstName = "Sylvestor",
-                LastName = "Stallone"
-            };
+            var actorMovie = new ActorMovie(actor.Id, movie.Id);
+            modelBuilder.Entity<ActorMovie>().HasData(actorMovie);
+
+            var director = new Director
+            (
+                id: 1,
+                firstName: "Sylvestor",
+                lastName: "Stallone"
+            );
 
             modelBuilder.Entity<Director>().HasData(director);
 
-            var directorMovie = new { DirectorId = 1, MovieId = 1 };
-
+            var directorMovie = new DirectorMovie(director.Id, movie.Id);
             modelBuilder.Entity<DirectorMovie>().HasData(directorMovie);
 
-            var genre = new
-            {
-                Id = 1,
-                Name = "Action Adventure",
-                Description = "featuring characters involved in exciting and usually dangerous " +
+            var genre = new Genre
+            (
+                id: 1,
+                name: "Action Adventure",
+                description: "featuring characters involved in exciting and usually dangerous " +
                 "activities and adventures The movie is closer to an action-adventure thriller than " +
                 "a journalistic account, but energetic acting and vigorous directing make it work " +
                 "harrowingly well on its own terms."
-            };
+            );
 
             modelBuilder.Entity<Genre>().HasData(genre);
 
-            var genreMovie = new { GenreId = 1, MovieId = 1 };
-
+            var genreMovie = new GenreMovie(genre.Id, movie.Id);
             modelBuilder.Entity<GenreMovie>().HasData(genreMovie);
 
-            var mediaType = new
-            {
-                Id = 1,
-                Name = "Blu-ray",
-                Description = "a format of DVD designed for the storage of high-definition video and data."
-            };
+            var mediaType = new MediaType
+            (
+                id: 1,
+                name: "Blu-ray",
+                description: "a format of DVD designed for the storage of high-definition video and data."
+            );
 
             modelBuilder.Entity<MediaType>().HasData(mediaType);
 
-            var mediaTypeMovie = new { MediaTypeId = 1, MovieId = 1 };
-
+            var mediaTypeMovie = new MediaTypeMovie(mediaType.Id, movie.Id);
             modelBuilder.Entity<MediaTypeMovie>().HasData(mediaTypeMovie);
 
-            var studio = new
-            {
-                Id = 1,
-                Name = "Lionsgate",
-                Description = "The first major new studio in decades, Lionsgate is a global content " +
+            var studio = new Studio
+            (
+                id: 1,
+                name: "Lionsgate",
+                description: "The first major new studio in decades, Lionsgate is a global content " +
                 "leader with a reputation for innovation whose films, television series, " +
                 "location-based and live entertainment attractions and Starz premium pay platform " +
                 "reach next generation audiences around the world."
-            };
+            );
 
             modelBuilder.Entity<Studio>().HasData(studio);
 
-            var studioMovie = new { MovieId = 1, StudioId = 1 };
-
+            var studioMovie = new StudioMovie(studio.Id, movie.Id);
             modelBuilder.Entity<StudioMovie>().HasData(studioMovie);
         }
 
         public static void AddManyToManyRelationships(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActorMovie>()
-                            .HasKey(am => new { am.ActorId, am.MovieId });
+                            .HasKey(am => new { am.MovieId, am.ActorId });
             modelBuilder.Entity<ActorMovie>()
                 .HasOne(am => am.Actor)
                 .WithMany(actor => actor.Movies);
